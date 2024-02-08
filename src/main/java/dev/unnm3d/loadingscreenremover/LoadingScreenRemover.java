@@ -34,6 +34,7 @@ public final class LoadingScreenRemover extends JavaPlugin {
 
         PacketEvents.getAPI().getEventManager().registerListeners(playerListener);
         PacketEvents.getAPI().init();
+        new Metrics(this, 20950);
 
     }
 

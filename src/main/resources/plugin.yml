@@ -1,5 +1,6 @@
 name: LoadingScreenRemover
 version: '${version}'
+author: Unnm3d
 main: dev.unnm3d.loadingscreenremover.LoadingScreenRemover
-api-version: '1.19'
+api-version: '1.18'
 folia-supported: true

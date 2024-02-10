@@ -15,15 +15,14 @@ public class PlayerListener extends SimplePacketListenerAbstract implements List
 
     @EventHandler
     public void onPlayerTeleportWorld(PlayerTeleportEvent event) {
-        PlayerManager playerManager = plugin.getPlayerManager();
         if (event.getFrom().getWorld() == null || event.getTo().getWorld() == null) return;
 
-
+        // If the player is changing worlds, and the environments are the same
         if (event.getFrom().getWorld() != event.getTo().getWorld() &&
                 event.getFrom().getWorld().getEnvironment() == event.getTo().getWorld().getEnvironment()) {
-            playerManager.addChangingWorldPlayer(event.getPlayer());
-        }
-        plugin.getTaskScheduler().runTaskLater(() -> playerManager.removeChangingWorldPlayer(event.getPlayer()), 2);
+            plugin.getPlayerManager().addChangingWorldPlayer(event.getPlayer());
+        }else return;
+        plugin.getTaskScheduler().runTaskLater(() -> plugin.getPlayerManager().removeChangingWorldPlayer(event.getPlayer()), 2);
     }
 
     @Override
@@ -31,7 +30,7 @@ public class PlayerListener extends SimplePacketListenerAbstract implements List
         if (event.getPacketType() != PacketType.Play.Server.RESPAWN) {
             return;
         }
-        if (!(event.getPlayer() instanceof Player player)) return;
+        final Player player = (Player) event.getPlayer();
 
         if (plugin.getPlayerManager().isPlayerChangingWorlds(player)) {
             event.setCancelled(true);

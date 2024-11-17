@@ -30,9 +30,8 @@ public class PlayerListener extends SimplePacketListenerAbstract implements List
         if (event.getPacketType() != PacketType.Play.Server.RESPAWN) {
             return;
         }
-        final Player player = (Player) event.getPlayer();
 
-        if (plugin.getPlayerManager().isPlayerChangingWorlds(player)) {
+        if (plugin.getPlayerManager().isPlayerChangingWorlds(event.getPlayer())) {
             event.setCancelled(true);
         }
     }

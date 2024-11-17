@@ -14,14 +14,6 @@ public final class LoadingScreenRemover extends JavaPlugin {
     private PlayerManager playerManager;
     private TaskScheduler taskScheduler;
 
-    @Override
-    public void onLoad() {
-        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-        PacketEvents.getAPI().getSettings().reEncodeByDefault(false)
-                .checkForUpdates(true)
-                .bStats(true);
-        PacketEvents.getAPI().load();
-    }
 
     @Override
     public void onEnable() {
@@ -33,14 +25,7 @@ public final class LoadingScreenRemover extends JavaPlugin {
         getServer().getPluginManager().registerEvents(playerListener, this);
 
         PacketEvents.getAPI().getEventManager().registerListeners(playerListener);
-        PacketEvents.getAPI().init();
         new Metrics(this, 20950);
-
-    }
-
-    @Override
-    public void onDisable() {
-        PacketEvents.getAPI().terminate();
     }
 
 }
